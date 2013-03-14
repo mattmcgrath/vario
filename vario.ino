@@ -2,8 +2,6 @@
 #include <Wire.h>
 #include <BMP085.h>
 
-// Sample the pressure N times and echo samples to serial console
-//int N = 1000;
 
 long Time = 0;
 
@@ -17,10 +15,6 @@ void setup(void) {
   delay(1000);
 
   pressure_sensor.init(MODE_ULTRA_HIGHRES, 101850, false);  // Initialize in highest resolution mode at standard pressure.
-  
-  // Print headers (for CSV impoort)
-  Serial.print("\"Time\",\"Altitude\"");
-
 }            
 
 void loop(void) {
