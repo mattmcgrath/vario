@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <BMP085.h>
 
+const int N = 30; // Number of samples to average
 
 long Time = 0;
 
@@ -18,8 +19,17 @@ void setup(void) {
 }            
 
 void loop(void) {
-  Time = millis(); 
-  pressure_sensor.getAltitude(&Altitude);
+  Time = millis();
+  
+  long Average_Altitude = 0;
+  
+  for(int i = 0; i < N; i++) {
+   pressure_sensor.getAltitude(&Altitude);
+   Average_Altitude = Average_Altitude + Altitude;
+  }
+  
+  Average_Altitude = Average_Altitude / N;
+  
   Serial.print(Time);
   Serial.print(",");
   Serial.println(Altitude);
